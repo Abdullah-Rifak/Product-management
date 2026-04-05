@@ -107,7 +107,7 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
       </CardContent>
 
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent className="animate-dialog-pop border-blue-200 bg-blue-50/95 backdrop-blur-xl">
+        <DialogContent className="animate-dialog-pop border-blue-200 bg-blue-50/95 dark:border-blue-900 dark:bg-slate-900/95 backdrop-blur-xl">
           <DialogHeader>
             <DialogTitle>Delete Product</DialogTitle>
             <DialogDescription>
@@ -117,7 +117,7 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
           <DialogFooter className="gap-2 sm:gap-2">
             <Button
               variant="outline"
-              className="border-blue-400 bg-blue-50 text-blue-800 hover:bg-blue-100 hover:text-blue-900"
+              className="border-blue-400 bg-blue-50 text-blue-800 hover:bg-blue-100 hover:text-blue-900 dark:border-blue-700 dark:bg-slate-800 dark:text-blue-300 dark:hover:bg-slate-700 dark:hover:text-blue-200"
               onClick={() => setIsDeleteOpen(false)}
             >
               Cancel
