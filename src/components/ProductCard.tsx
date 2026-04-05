@@ -46,7 +46,7 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
   };
 
   return (
-    <Card className="group h-full max-w-full hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-slate-50 animate-card-rise hover:-translate-y-2 hover:scale-[1.02]">
+    <Card className="group h-full min-h-[370px] sm:min-h-[395px] max-w-full flex flex-col hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-white to-slate-50 animate-card-rise hover:-translate-y-2 hover:scale-[1.02]">
       <CardHeader className="pb-2 sm:pb-3">
         <div className="relative h-28 sm:h-36 rounded-xl overflow-hidden bg-gradient-to-br from-muted/50 to-muted mb-2 sm:mb-3 animate-soft-float">
           {product.image && !imageError ? (
@@ -70,7 +70,7 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-2 sm:space-y-3 pb-3 sm:pb-4">
+      <CardContent className="flex flex-1 flex-col space-y-2 sm:space-y-3 pb-3 sm:pb-4">
         <div className="flex items-baseline gap-2">
           <Badge className="px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold shadow-lg">
             ${product.price.toFixed(2)}
@@ -80,11 +80,11 @@ export const ProductCard = ({ product, onEdit, onDelete }: ProductCardProps) => 
           </CardDescription>
         </div>
 
-        <CardDescription className="text-sm leading-relaxed line-clamp-3 sm:line-clamp-2 sm:h-12">
+        <CardDescription className="text-sm leading-relaxed line-clamp-3 h-[3.75rem]">
           {product.description}
         </CardDescription>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+        <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
           <Button
             variant="default"
             size="sm"
