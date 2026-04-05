@@ -127,10 +127,10 @@
 
   .main-corner-background {
     background: linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--ui-blue) 84%, white) 0 60%,
-      color-mix(in srgb, var(--ui-butter) 82%, white) 60% 90%,
-      color-mix(in srgb, var(--ui-black) 20%, white) 90% 100%
+      180deg,
+      color-mix(in srgb, var(--ui-blue) 86%, white) 0 62%,
+      color-mix(in srgb, var(--ui-butter) 84%, white) 62% 94%,
+      color-mix(in srgb, var(--ui-black) 16%, white) 94% 100%
     );
   }
   html {
