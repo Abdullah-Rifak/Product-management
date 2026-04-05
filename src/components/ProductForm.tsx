@@ -27,6 +27,7 @@ interface ProductFormProps {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   title?: string;
+  showTrigger?: boolean;
 }
 
 export const ProductForm = ({
@@ -35,6 +36,7 @@ export const ProductForm = ({
   open,
   onOpenChange,
   title = 'Add New Product',
+  showTrigger = true,
 }: ProductFormProps) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -80,6 +82,10 @@ export const ProductForm = ({
       newErrors.description = 'Description is required';
     } else if (formData.description.trim().length < 10) {
       newErrors.description = 'Description must be at least 10 characters';
+    }
+
+    if (!formData.image.trim()) {
+      newErrors.image = 'Product image is required';
     }
 
     setErrors(newErrors);
@@ -146,6 +152,11 @@ export const ProductForm = ({
       setFormData((prev) => ({ ...prev, image: result }));
       setImagePreview(result || null);
       setSelectedImageName(file.name);
+      setErrors((prev) => {
+        const nextErrors = { ...prev };
+        delete nextErrors.image;
+        return nextErrors;
+      });
     };
     reader.onerror = () => {
       toast.error('Failed to read image', {
@@ -165,14 +176,16 @@ export const ProductForm = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>
-        <Button className="mb-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
-          <Plus className="w-5 h-5 mr-2" />
-          {title}
-        </Button>
-      </DialogTrigger>
+      {showTrigger && (
+        <DialogTrigger asChild>
+          <Button className="mb-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Plus className="w-5 h-5 mr-2" />
+            {title}
+          </Button>
+        </DialogTrigger>
+      )}
       
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 sm:p-6">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 sm:p-6 animate-dialog-pop">
         <DialogHeader className="px-6 pb-4 pt-6 sm:pb-6">
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-foreground to-primary/80 bg-clip-text text-transparent">
             {initialData ? 'Edit Product' : 'Add New Product'}
@@ -180,7 +193,7 @@ export const ProductForm = ({
           <DialogDescription className="text-muted-foreground">
             {initialData 
               ? 'Update the product details below.' 
-              : 'Enter all product details. Image is optional.'
+              : 'Enter all product details. Image is required.'
             }
           </DialogDescription>
         </DialogHeader>
@@ -257,18 +270,26 @@ export const ProductForm = ({
           <div className="space-y-2">
             <Label htmlFor="image" className="text-sm font-medium flex items-center gap-2">
               <ImageIcon className="w-4 h-4" />
-              Product Image (Optional)
+              Product Image <span className="text-destructive">*</span>
             </Label>
             <Input
               id="image"
               type="file"
               accept="image/*"
               onChange={handleImageFileChange}
+              required={!initialData?.image}
+              className={errors.image ? 'border-destructive focus:border-destructive' : ''}
               disabled={isSubmitting}
             />
             <p className="text-xs text-muted-foreground">
               Upload JPG, PNG, WebP, or GIF up to 5MB.
             </p>
+            {errors.image && (
+              <p className="text-sm text-destructive flex items-center gap-1">
+                <X className="w-4 h-4" />
+                {errors.image}
+              </p>
+            )}
             {selectedImageName && (
               <p className="text-xs text-muted-foreground">Selected: {selectedImageName}</p>
             )}

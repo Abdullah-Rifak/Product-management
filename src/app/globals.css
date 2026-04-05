@@ -127,12 +127,135 @@
 
   .main-corner-background {
     background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--ui-blue) 86%, white) 0 62%,
-      color-mix(in srgb, var(--ui-butter) 84%, white) 62% 94%,
-      color-mix(in srgb, var(--ui-black) 16%, white) 94% 100%
+      145deg,
+      color-mix(in srgb, var(--ui-blue) 88%, white) 0%,
+      color-mix(in srgb, var(--ui-blue) 72%, white) 55%,
+      color-mix(in srgb, var(--ui-blue) 52%, #8fbfe8) 100%
     );
+    background-size: 160% 160%;
+    animation: background-drift 16s ease-in-out infinite;
   }
+
+  .dark .main-corner-background {
+    background: linear-gradient(
+      145deg,
+      #0d1b2a 0%,
+      #16293f 52%,
+      #23466a 100%
+    );
+    background-size: 160% 160%;
+  }
+
+  .animate-page-enter {
+    animation: page-enter 900ms ease-out both;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 800ms ease-out both;
+  }
+
+  .animate-card-rise {
+    animation: card-rise 850ms ease-out both;
+  }
+
+  .animate-soft-float {
+    animation: soft-float 4.8s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  .animate-dialog-pop {
+    animation: dialog-pop 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes background-drift {
+    0%,
+    100% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+  }
+
+  @keyframes page-enter {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes card-rise {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes soft-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  @keyframes shimmer {
+    0%,
+    100% {
+      opacity: 0.92;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes dialog-pop {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -46%) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-page-enter,
+    .animate-fade-up,
+    .animate-card-rise,
+    .animate-soft-float,
+    .animate-shimmer,
+    .animate-dialog-pop,
+    .main-corner-background {
+      animation: none !important;
+    }
+  }
+
   html {
     font-family: var(--font-sans);
   }

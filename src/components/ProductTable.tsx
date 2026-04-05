@@ -16,6 +16,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -33,28 +34,27 @@ interface ProductTableProps {
 export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [viewingProduct, setViewingProduct] = useState<Product | null>(null);
+  const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
   const [brokenImageIds, setBrokenImageIds] = useState<string[]>([]);
 
   const handleEdit = (product: Product) => {
     setEditingProduct(product);
   };
 
-  const handleDelete = (id: string, name: string) => {
-    if (confirm(`Delete "${name}"? This action cannot be undone.`)) {
-      onDelete(id);
-      toast.success('Product Deleted', {
-        description: `"${name}" has been permanently removed.`,
-        duration: 4000,
-      });
-    }
+  const handleDeleteConfirm = () => {
+    if (!deletingProduct) return;
+
+    onDelete(deletingProduct.id);
+    toast.success('Product Deleted', {
+      description: `"${deletingProduct.name}" has been permanently removed.`,
+      duration: 4000,
+    });
+    setDeletingProduct(null);
   };
 
   const handleEditSubmit = (updatedData: Partial<Product>) => {
     if (editingProduct) {
       onEdit(editingProduct.id, updatedData);
-      toast.success('Product Updated', {
-        description: `"${editingProduct.name}" has been updated successfully.`,
-      });
       setEditingProduct(null);
     }
   };
@@ -69,8 +69,8 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
 
   return (
     <>
-      <div className="rounded-2xl border bg-card shadow-sm overflow-hidden">
-        <Table>
+      <div className="rounded-2xl border bg-card shadow-sm overflow-hidden overflow-x-auto">
+        <Table className="min-w-[760px]">
           <TableHeader className="bg-gradient-to-r from-muted/50 to-muted/30">
             <TableRow>
               <TableHead className="w-20">Preview</TableHead>
@@ -174,7 +174,7 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
                         size="sm"
                         className="h-9 w-9 p-0 hover:bg-destructive/10 text-destructive hover:text-destructive hover:bg-destructive/20"
                         title="Delete Product"
-                        onClick={() => handleDelete(product.id, product.name)}
+                        onClick={() => setDeletingProduct(product)}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -194,11 +194,12 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
           onSubmit={handleEditSubmit}
           open={!!editingProduct}
           onOpenChange={() => setEditingProduct(null)}
+          showTrigger={false}
         />
       )}
 
       <Dialog open={!!viewingProduct} onOpenChange={() => setViewingProduct(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl animate-dialog-pop">
           <DialogHeader>
             <DialogTitle>{viewingProduct?.name}</DialogTitle>
             <DialogDescription>{viewingProduct?.description}</DialogDescription>
@@ -224,6 +225,33 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
               </div>
             )}
           </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!deletingProduct} onOpenChange={() => setDeletingProduct(null)}>
+        <DialogContent className="animate-dialog-pop border-blue-200 bg-blue-50/95 backdrop-blur-xl">
+          <DialogHeader>
+            <DialogTitle>Delete Product</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete &quot;{deletingProduct?.name}&quot;? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="gap-2 sm:gap-2">
+            <Button
+              variant="outline"
+              className="border-blue-400 bg-blue-50 text-blue-800 hover:bg-blue-100 hover:text-blue-900"
+              onClick={() => setDeletingProduct(null)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="default"
+              className="bg-red-600 text-white hover:bg-red-700 border border-red-700"
+              onClick={handleDeleteConfirm}
+            >
+              Delete
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
