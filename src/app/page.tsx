@@ -115,7 +115,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen main-corner-background animate-page-enter">
-      {/* Header */}
       <div className="bg-card/80 backdrop-blur-xl border-b border-border/70 sticky top-0 z-50 animate-fade-up">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="absolute right-4 top-4 sm:right-6 sm:top-6 z-10">
@@ -153,9 +152,7 @@ export default function Home() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Sidebar - Stats & Controls */}
           <div className="lg:col-span-1 space-y-6">
-            {/* Add Product Button */}
             <ProductForm
               onSubmit={handleAddProduct}
               open={isAddDialogOpen}
@@ -163,7 +160,6 @@ export default function Home() {
               title="Add New Product"
             />
 
-            {/* Stats Cards */}
             <div className="space-y-4 animate-fade-up">
               <div className="bg-card/75 backdrop-blur-xl rounded-2xl p-8 border border-border/70 shadow-xl hover:shadow-2xl transition-all duration-300 animate-soft-float">
                 <div className="flex items-center gap-3 mb-4">
@@ -191,9 +187,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Main Content */}
           <div className="lg:col-span-3 space-y-6 animate-fade-up">
-            {/* Search & View Toggle */}
             <div className="bg-card/75 backdrop-blur-xl rounded-2xl p-6 border border-border/70 shadow-xl animate-fade-up animate-soft-float">
               <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
                 <div className="relative flex-1">
@@ -297,7 +291,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Products Content */}
             <div className="space-y-6">
               {filteredProducts.length === 0 ? (
                 <div className="bg-card/75 backdrop-blur-xl rounded-2xl border border-border/70 p-16 text-center shadow-xl">

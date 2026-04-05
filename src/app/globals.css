@@ -259,7 +259,6 @@
   html {
     font-family: var(--font-sans);
   }
-  /* Add to end of globals.css */
 .line-clamp-1 {
   display: -webkit-box;
   line-clamp: 1;

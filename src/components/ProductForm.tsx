@@ -49,7 +49,6 @@ export const ProductForm = ({
   const [selectedImageName, setSelectedImageName] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Load initial data
   useEffect(() => {
     if (initialData) {
       setFormData({
@@ -113,7 +112,6 @@ export const ProductForm = ({
         }
       );
       
-      // Reset form
       setFormData({ name: '', price: '', description: '', image: '' });
       setImagePreview(null);
       if (onOpenChange) onOpenChange(false);
@@ -199,7 +197,6 @@ export const ProductForm = ({
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="px-6 pb-6 space-y-6">
-          {/* Name */}
           <div className="space-y-2">
             <Label htmlFor="name" className="text-sm font-medium">
               Product Name <span className="text-destructive">*</span>
@@ -220,7 +217,6 @@ export const ProductForm = ({
             )}
           </div>
 
-          {/* Price */}
           <div className="space-y-2">
             <Label htmlFor="price" className="text-sm font-medium">
               Price ($) <span className="text-destructive">*</span>
@@ -244,7 +240,6 @@ export const ProductForm = ({
             )}
           </div>
 
-          {/* Description */}
           <div className="space-y-2">
             <Label htmlFor="description" className="text-sm font-medium">
               Description <span className="text-destructive">*</span>
@@ -266,7 +261,6 @@ export const ProductForm = ({
             )}
           </div>
 
-          {/* Image */}
           <div className="space-y-2">
             <Label htmlFor="image" className="text-sm font-medium flex items-center gap-2">
               <ImageIcon className="w-4 h-4" />
@@ -310,7 +304,6 @@ export const ProductForm = ({
             )}
           </div>
 
-          {/* Actions */}
           <DialogFooter className="gap-3 pt-8 border-t">
             <Button
               type="button"

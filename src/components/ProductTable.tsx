@@ -101,7 +101,6 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
             ) : (
               products.map((product) => (
                 <TableRow key={product.id} className="hover:bg-muted/50 transition-colors border-t">
-                  {/* Image Preview */}
                   <TableCell>
                     <div className="w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
                       {product.image && !brokenImageIds.includes(product.id) ? (
@@ -124,31 +123,26 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
                     </div>
                   </TableCell>
 
-                  {/* Name */}
                   <TableCell className="font-semibold text-lg">{product.name}</TableCell>
 
-                  {/* Price */}
                   <TableCell>
                     <Badge className="px-4 py-1.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold shadow-md whitespace-nowrap">
                       ${product.price.toFixed(2)}
                     </Badge>
                   </TableCell>
 
-                  {/* Description */}
                   <TableCell className="max-w-md">
                     <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
                       {product.description}
                     </p>
                   </TableCell>
 
-                  {/* Date */}
                   <TableCell className="text-right">
                     <span className="text-sm text-muted-foreground">
                       {formatDate(product.createdAt)}
                     </span>
                   </TableCell>
 
-                  {/* Actions */}
                   <TableCell className="text-right">
                     <div className="flex items-center gap-1.5 justify-end">
                       <Button
@@ -187,7 +181,6 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
         </Table>
       </div>
 
-      {/* Edit Dialog */}
       {editingProduct && (
         <ProductForm
           initialData={editingProduct}

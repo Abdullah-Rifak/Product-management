@@ -19,7 +19,6 @@ export const useProducts = () => {
     );
   };
 
-  // Load products from localStorage
  useEffect(() => {
   try {
     const saved = localStorage.getItem("products");
@@ -36,12 +35,11 @@ export const useProducts = () => {
     setProducts(validProducts);
   } catch (error) {
     console.error("Failed to load products:", error);
-    localStorage.removeItem("products"); // Clear corrupted data
+    localStorage.removeItem("products");
   } finally {
     setLoading(false);
   }
 }, []);
-  // Save to localStorage
   const saveToStorage = useCallback((updatedProducts: Product[]) => {
     try {
       localStorage.setItem('products', JSON.stringify(updatedProducts, null, 2));
@@ -66,7 +64,6 @@ export const useProducts = () => {
         ? { 
             ...product, 
             ...updatedProduct,
-            // Ensure price remains a number
             ...(updatedProduct.price !== undefined && { price: Number(updatedProduct.price) })
           }
         : product
@@ -89,7 +86,6 @@ export const useProducts = () => {
     );
   };
 
-  // Get stats
   const getStats = () => ({
     total: products.length,
     totalValue: products.reduce((sum, p) => sum + p.price, 0),
